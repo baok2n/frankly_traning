@@ -19,7 +19,7 @@ export default {
       new HtmlWebpackPlugin({
         template: 'src/index.html',
         inject: true
-       })
+      })
     ],
     module: {
         loaders: [
