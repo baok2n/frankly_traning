@@ -1,4 +1,8 @@
+import React from 'react'; // eslint-disable-line no-unused-vars
+import ReactDOM from 'react-dom';
 import './index.css';
+import AuthorQuiz from './AuthorQuiz'; // eslint-disable-line no-unused-vars
+import registerServiceWorker from './registerServiceWorker';
 
 import {getUsers, deleteUser} from './api/userApi';
 
@@ -32,3 +36,12 @@ getUsers().then(result => {
     }
   });
 });
+
+let model = { clicks: 0};
+
+function render() {
+  ReactDOM.render(<AuthorQuiz clicks={model.clicks} onClick={() => { model.clicks += 1; render(); }}/>, document.getElementById('react'));
+  
+}
+render();
+registerServiceWorker();

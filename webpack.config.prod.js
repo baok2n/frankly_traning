@@ -60,7 +60,7 @@ export default {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
+      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel'], options: {presets: ['react']}},
       {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
     ]
   }
