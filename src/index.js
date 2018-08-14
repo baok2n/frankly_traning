@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import AuthorQuiz from './AuthorQuiz'; // eslint-disable-line no-unused-vars
 import registerServiceWorker from './registerServiceWorker';
+import PropTypes from 'prop-types';
 
 import {getUsers, deleteUser} from './api/userApi';
 
@@ -40,8 +41,27 @@ getUsers().then(result => {
 let model = { clicks: 0};
 
 function render() {
-  ReactDOM.render(<AuthorQuiz clicks={model.clicks} onClick={() => { model.clicks += 1; render(); }}/>, document.getElementById('react'));
+  ReactDOM.render(<AuthorQuiz clicks={model.clicks} onClick={() => { model.clicks += 1; render(); }}/>,
+  document.getElementById('react'));
   
 }
 render();
 registerServiceWorker();
+
+function Hello(props) {
+  return <h1>Hello at {props.now}</h1>;
+}
+
+ReactDOM.render(<Hello now={new Date().toISOString()} /> ,document.getElementById('hello'));
+
+function Sum(props) {
+  return <h1>{props.a} + {props.b} = {props.a + props.b}</h1>;
+}
+Sum.propTypes = {
+  a: PropTypes.number.isRequired,
+  b: PropTypes.number.isRequired
+}
+
+ReactDOM.render(<Sum a={1} b={'c'}/>, document.getElementById('sum'));
+
+export default Hello;

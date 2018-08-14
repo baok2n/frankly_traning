@@ -5,7 +5,7 @@ import './bootstrap.min.css';
 class AuthorQuiz extends Component {
   render() {
     return (
-      <div>Author Quiz</div>
+      <div onClick={this.props.onClick}>Author Quiz. This div has been clicked {this.props.clicks} times.</div>
     );
   }
 }

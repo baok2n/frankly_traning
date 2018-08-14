@@ -24,10 +24,11 @@
   "author": "Cory House",
   "license": "MIT",
   "dependencies": {
-    "whatwg-fetch": "1.0.0",
+    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.16.0",
