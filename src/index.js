@@ -1,67 +1,76 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
-import ReactDOM from 'react-dom';
 import './index.css';
 import AuthorQuiz from './AuthorQuiz'; // eslint-disable-line no-unused-vars
 import registerServiceWorker from './registerServiceWorker';
-import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import {shuffle, sample} from 'underscore';
 
-import {getUsers, deleteUser} from './api/userApi';
+const authors = [
+  {
+    name: 'Mark Twain',
+    imageUrl: 'images/authors/marktwain.jpg',
+    imageSource: 'Wikimedia Commons',
+    books: [
+      'MT Book1',
+      'MT book2',
+      'MT book3'
+    ]
+  },
+  {
+    name: 'Arteezy',
+    imageUrl: 'images/authors/arteezy.jpg',
+    imageSource: 'Wikimedia Commons',
+    books: [
+      'RTZ Book1',
+      'RTZ book2',
+      'RTZ book3'
+    ]
+  },
+  {
+    name: 'Burning',
+    imageUrl: 'images/authors/burning.jpg',
+    imageSource: 'Wikimedia Commons',
+    books: [
+      'Burning Book1',
+      'Burning book2',
+      'Burning book3'
+    ]
+  },
+  {
+    name: 'Cancel',
+    imageUrl: 'images/authors/cancel.jpg',
+    imageSource: 'Wikimedia Commons',
+    books: [
+      'Cancel Book1',
+      'Cancel book2',
+      'Cancel book3'
+    ]
+  },
+];
 
-// Populate table of users via API call.
-getUsers().then(result => {
-  let usersBody = "";
+function getTurnData(authors) {
+  const allBooks = authors.reduce(function (p, c, i) {
+    return p.concat(c.books);
+  }, []);
+  const fourRandomBooks = shuffle(allBooks).slice(0,4);
+  const answer = sample(fourRandomBooks);
 
-  result.forEach(user => {
-    usersBody+= `<tr>
-      <td><a href="#" data-id="${user.id}" class="deleteUser">Delete</a></td>
-      <td>${user.id}</td>
-      <td>${user.firstName}</td>
-      <td>${user.lastName}</td>
-      <td>${user.email}</td>
-      </tr>`
-  });
+  return {
+    books: fourRandomBooks,
+    author: authors.find((author) =>
+      author.books.some((title) =>
+        title === answer))
+  }
+}
 
-  global.document.getElementById('users').innerHTML = usersBody;
-
-  const deleteLinks = global.document.getElementsByClassName('deleteUser');
-
-  // Must use array.from to create a real array from a DOM collection
-  // getElementsByClassName only returns an "array like" object
-  Array.from(deleteLinks, link => {
-    link.onclick = function(event) {
-      const element = event.target;
-      event.preventDefault();
-      deleteUser(element.attributes["data-id"].value);
-      const row = element.parentNode.parentNode;
-      row.parentNode.removeChild(row);
-    }
-  });
-});
-
-let model = { clicks: 0};
+const state = {
+  turnData: getTurnData(authors)
+};
 
 function render() {
-  ReactDOM.render(<AuthorQuiz clicks={model.clicks} onClick={() => { model.clicks += 1; render(); }}/>,
-  document.getElementById('react'));
+  ReactDOM.render(<AuthorQuiz {...state} />,
+  document.getElementById('root'));
   
 }
 render();
 registerServiceWorker();
-
-function Hello(props) {
-  return <h1>Hello at {props.now}</h1>;
-}
-
-ReactDOM.render(<Hello now={new Date().toISOString()} /> ,document.getElementById('hello'));
-
-function Sum(props) {
-  return <h1>{props.a} + {props.b} = {props.a + props.b}</h1>;
-}
-Sum.propTypes = {
-  a: PropTypes.number.isRequired,
-  b: PropTypes.number.isRequired
-}
-
-ReactDOM.render(<Sum a={1} b={'c'}/>, document.getElementById('sum'));
-
-export default Hello;
