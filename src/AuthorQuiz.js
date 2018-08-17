@@ -1,4 +1,5 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import PropTypes from 'prop-types';
 import './App.css';
 import './bootstrap.min.css';
 
@@ -11,22 +12,41 @@ function Hero() { // eslint-disable-line no-unused-vars
   </div>);
 }
 
-function Book({title}) {
-  return (<div className="answer">
+function Book({title, onClick}) {
+  return (<div className="answer" onClick={() => {onClick(title);}}>
     <h4>{title}</h4>
   </div>);
 }
 
-function Turn({author, books}) { // eslint-disable-line no-unused-vars
-  return (<div className="row turn" style={{backgroundColor: "white"}}>
+function Turn({author, books, highlight, onAnswerSelected}) { // eslint-disable-line no-unused-vars
+  function highlightBgColor(highlight) {
+    const mapping = {
+      'none': '',
+      'correct': 'green',
+      'wrong': 'red'
+    };
+    return mapping[highlight];
+  }
+  return (<div className="row turn" style={{backgroundColor: highlightBgColor(highlight)}}>
     <div className="col-4 offset-1">
       <img src={author.imageUrl} className="authorimage" alt="Author"/>
     </div>
     <div className="col-6">
-      {books.map((title) => <Book title={title} key={title}/>)}
+      {books.map((title) => <Book title={title} key={title} onClick={onAnswerSelected} />)}
     </div>
   </div>);
 }
+
+Turn.propTypes = {
+  author: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    books: PropTypes.arrayOf(PropTypes.string.isRequired)
+  }),
+  books: PropTypes.arrayOf(PropTypes.string.isRequired),
+  onAnswerSelected: PropTypes.func.isRequired,
+  highlight: PropTypes.string.isRequired
+};
 
 function Continue() { // eslint-disable-line no-unused-vars
   return (<div/>);
@@ -42,11 +62,11 @@ function Footer() { // eslint-disable-line no-unused-vars
   </div>);
 }
 
-function AuthorQuiz({turnData}) {
+function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
   return (
     <div className="container-fluid">
       <Hero/>
-      <Turn {...turnData}/>
+      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
       <Continue/>
       <Footer/>
     </div>
