@@ -1,7 +1,9 @@
 import './index.css';
 import AuthorQuiz from './AuthorQuiz'; // eslint-disable-line no-unused-vars
+import AddAuthorForm from './AddAuthorForm';
 import registerServiceWorker from './registerServiceWorker';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import {shuffle, sample} from 'underscore';
 
@@ -74,8 +76,23 @@ function onAnswerSelected(answer) {
   render();
 }
 
+function App() {
+  return <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected}/>;
+}
+
+function AuthurWrapper() {
+  return <AddAuthorForm onAddAuthur={(author) => {
+    authors.push(author);
+  }} />;
+}
+
 function render () {
-  ReactDOM.render(<AuthorQuiz {...state} onAnswerSelected={onAnswerSelected}/>,   document.getElementById('root'));
+  ReactDOM.render(<BrowserRouter>
+    <React.Fragment>
+      <Route exact path="/" component={App} />
+      <Route exact path="/add" component={AuthurWrapper} />
+    </React.Fragment>
+  </BrowserRouter>,   document.getElementById('root'));
 }
 
 render();

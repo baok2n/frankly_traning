@@ -22,6 +22,11 @@ app.get('/', (req, res) => {
   // res.send('Hello World!');
 });
 
+app.get('/add', (req, res) => {
+  res.sendFile(path.join(__dirname, ('../src/add.html')));
+  // res.send('Hello World!');
+});
+
 app.get('/users', function(req, res) {
   // Hard coding for simplicity. Pretend this hits a real database
   res.json([

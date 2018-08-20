@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './App.css';
 import './bootstrap.min.css';
 
@@ -69,6 +70,7 @@ function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
       <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
       <Continue/>
       <Footer/>
+      <p><Link to="/add">Add Author</Link></p>
     </div>
   );
 }
