@@ -19,7 +19,7 @@ class AuthorForm extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onAddAuthur(this.state);
+    this.props.onAddAuthor(this.state);
   }
   onFieldChange(event) {
     this.setState({
@@ -53,10 +53,10 @@ class AuthorForm extends React.Component {
   }
 }
 
-function AddAuthorForm({match, onAddAuthur}) {
+function AddAuthorForm({match, onAddAuthor}) {
   return <div className="AddAuthorForm">
     <h1>Add Author</h1>
-    <AuthorForm onAddAuthur={onAddAuthur}/>
+    <AuthorForm onAddAuthor={onAddAuthor}/>
   </div>;
 }
 

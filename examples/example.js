@@ -94,26 +94,30 @@ anObject.demo();
 console.log("-----------------------------------------------");
 // Promises
 
-function askForCar(luck) {
+function askForCar (luck) {
     return new Promise((resolve, reject) => {
-        if (luck) {
-            resolve("Yay a car");
+        if (true) {
+            // resolve("Yay a car");
+            console.log("Yay a car");
         } else {
             reject("no car ... FeelsBadMan");
         }
     });
 }
 
-var truePromise = askForCar(true);
-truePromise.then(() => {
-    console.log("Go out with girls")
-}).then(() => {
-    console.log("Go to hotel");
-}).then(() => {
-    console.log("Dont know what's gonna happen");
-}).catch((err) => {
-    console.log(err);
-});
+// var truePromise = askForCar(true);
+setTimeout(askForCar, 2000);
+console.log("Statement placed ater askForCar promise call");
+
+// truePromise.then(() => {
+//     console.log("Go out with girls")
+// }).then(() => {
+//     console.log("Go to hotel");
+// }).then(() => {
+//     console.log("Dont know what's gonna happen");
+// }).catch((err) => {
+//     console.log(err);
+// });
 
 console.log("-----------------------------------------------");
 
@@ -155,3 +159,5 @@ var stillSerial = function () {
 }
 
 concurrentStart();
+
+console.log("-----------------------------------------------");

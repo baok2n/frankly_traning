@@ -1,8 +1,8 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './App.css';
 import './bootstrap.min.css';
+import './App.css';
 
 function Hero() { // eslint-disable-line no-unused-vars
   return (<div className="row">
@@ -49,8 +49,15 @@ Turn.propTypes = {
   highlight: PropTypes.string.isRequired
 };
 
-function Continue() { // eslint-disable-line no-unused-vars
-  return (<div/>);
+function Continue({ show, onContinue}) { // eslint-disable-line no-unused-vars
+  return (
+    <div className="row-continue">
+    { show
+      ? <div className="col-11">
+          <button className="btn btn-primary btn-lg float-right continue" onClick={onContinue}>Continue</button>
+        </div>
+      : null}
+    </div>);
 }
 
 function Footer() { // eslint-disable-line no-unused-vars
@@ -63,12 +70,12 @@ function Footer() { // eslint-disable-line no-unused-vars
   </div>);
 }
 
-function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
+function AuthorQuiz({turnData, highlight, onAnswerSelected, onContinue}) {
   return (
     <div className="container-fluid">
       <Hero/>
       <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
-      <Continue/>
+      <Continue show={highlight === 'correct'} onContinue={onContinue}/>
       <Footer/>
       <p><Link to="/add">Add Author</Link></p>
     </div>
