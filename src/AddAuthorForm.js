@@ -1,8 +1,7 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-// import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import './AddAuthorForm.css';
-// import './bootstrap.min.css';
 
 class AuthorForm extends React.Component {
   constructor(props) {
@@ -60,4 +59,13 @@ function AddAuthorForm({match, onAddAuthor}) {
   </div>;
 }
 
-export default AddAuthorForm;
+function mapDispatchToProps(dispatch, props) {
+  return {
+    onAddAuthor: (author) => {
+      dispatch({ type: 'ADD_AUTHOR', author });
+      props.history.push('/');
+    }
+  };
+}
+
+export default withRouter(connect(() => {}, mapDispatchToProps)(AddAuthorForm));
