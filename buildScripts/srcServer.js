@@ -19,12 +19,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, ('../src/index.html')));
-  // res.send('Hello World!');
 });
 
 app.get('/add', (req, res) => {
   res.sendFile(path.join(__dirname, ('../src/add.html')));
-  // res.send('Hello World!');
+});
+
+app.get('/lifecycle', (req, res) => {
+  res.sendFile(path.join(__dirname, ('../src/add.html')));
 });
 
 app.get('/users', function(req, res) {

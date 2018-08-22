@@ -1,6 +1,7 @@
 import './index.css';
 import AuthorQuiz from './AuthorQuiz'; // eslint-disable-line no-unused-vars
 import AddAuthorForm from './AddAuthorForm';
+import LifeCycleExample from './LifeCycleExample';
 import registerServiceWorker from './registerServiceWorker';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, withRouter } from 'react-router-dom';
@@ -97,6 +98,7 @@ ReactDOM.render(
     <React.Fragment>
       <Route exact path="/" component={AuthorQuiz} />
       <Route exact path="/add" component={AddAuthorForm} />
+      <Route exact path="/lifecycle" component={LifeCycleExample} />
     </React.Fragment>
   </ReactRedux.Provider>
 </BrowserRouter>, document.getElementById('root'));
